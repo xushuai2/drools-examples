@@ -1,16 +1,17 @@
 package com.neo.drools.controller;
 
-import com.neo.drools.model.Address;
-import com.neo.drools.model.fact.AddressCheckResult;
-import com.neo.drools.service.ReloadDroolsRulesService;
-import org.kie.api.runtime.KieContainer;
+import java.io.IOException;
+
+import javax.annotation.Resource;
+
 import org.kie.api.runtime.KieSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
-import java.io.IOException;
+import com.neo.drools.model.Address;
+import com.neo.drools.model.fact.AddressCheckResult;
+import com.neo.drools.service.ReloadDroolsRulesService;
 
 
 @RequestMapping("/test")

@@ -3,7 +3,37 @@ package plausibcheck.adress
 import com.neo.drools.model.Address;
 import com.neo.drools.model.fact.AddressCheckResult;
 
+
+
+//package 与Java语言类似，drl的头部需要有package和import的声明,package不必和物理路径一致。
+
+//import 导出java Bean的完整路径，也可以将Java静态方法导入调用。
+
+//rule 规则名称，需要保持唯一 件,可以无限次执行。
+
+//no-loop 定义当前的规则是否不允许多次循环执行,默认是 false,也就是当前的规则只要满足条件,可以无限次执行。
+
+//lock-on-active 将lock-on-active属性的值设置为true,可避免因某些Fact对象被修改而使已经执行过的规则再次被激活执行。
+
+//salience 用来设置规则执行的优先级,salience 属性的值是一个数字,数字越大执行优先级越高, 同时它的值可以是一个负数。默认情况下,规则的 salience 默认值为 0。如果不设置规则的 salience 属性,那么执行顺序是随机的。
+
+//when 条件语句，就是当到达什么条件的时候
+
+//then 根据条件的结果，来执行什么动作
+
+//end 规则结束
+
+//insert 在我们规则语句中的then语句，规则可以推断出新的信息。更多的数据可以提供给工作中的内存，以便对使用insert关键字的所有规则进行进一步的评估
+
+//modify 修改工作中内存的值，所有规则进行进一步的评估
+
+//timer 开启定时任务
+
+
+
 rule "Postcode should be filled with exactly 5 numbers"
+	//优先级，数值越大越先执行，这个可以控制规则的执行顺序
+    salience 1
     when
     //Rule的LHS由条件元素（Conditional Elements—CE）和匹配模式（Patterns）组成
     
@@ -21,10 +51,23 @@ rule "Postcode should be filled with exactly 5 numbers"
 //end 代表规则结束。
 end
 
+rule "xs gz2"
+	//优先级，数值越大越先执行，这个可以控制规则的执行顺序
+    salience 3
+    when
+        address : Address(postcode != null, postcode.length ==5)
+        checkResult : AddressCheckResult();
+        
+    then
+        checkResult.setPostCodeResult(true);
+        checkResult.setNum(checkResult.getNum()+1);
+		System.out.println("规则xddddddddddddd校验通过!");
+end
 
 
-
-rule "xs gz"
+rule "xs gz3"
+	//优先级，数值越大越先执行，这个可以控制规则的执行顺序
+    salience 2
     when
         address : Address(postcode != null, postcode.length ==5)
         checkResult : AddressCheckResult();

@@ -1,20 +1,24 @@
 package com.neo.drools;
 
-import com.neo.drools.model.Message;
+import java.io.UnsupportedEncodingException;
+
+import org.drools.core.impl.InternalKnowledgeBase;
 import org.kie.api.io.ResourceType;
-import org.kie.internal.KnowledgeBase;
+import org.kie.api.runtime.KieSession;
 import org.kie.internal.KnowledgeBaseFactory;
 import org.kie.internal.builder.KnowledgeBuilder;
 import org.kie.internal.builder.KnowledgeBuilderError;
 import org.kie.internal.builder.KnowledgeBuilderErrors;
 import org.kie.internal.builder.KnowledgeBuilderFactory;
 import org.kie.internal.io.ResourceFactory;
-import org.kie.internal.runtime.StatefulKnowledgeSession;
 
-import java.io.UnsupportedEncodingException;
-
+import com.neo.drools.model.Message;
 
 
+/*
+ * 读取规则。
+ * 动态读取非常简单，不需要kmodule配置文件，也不需要drl文件，
+ * 只需要把drl文件的内容，保存到比如数据库中，然后使用以下代码即可*/
 
 public class DdLoadTest {
 
@@ -41,7 +45,7 @@ public class DdLoadTest {
 		rule += "end\r\n";
 
 
-		StatefulKnowledgeSession kSession = null;
+		KieSession  kSession = null;
 		try {
 
 
@@ -50,16 +54,15 @@ public class DdLoadTest {
 			kb.add(ResourceFactory.newByteArrayResource(rule.getBytes("utf-8")), ResourceType.DRL);
 			kb.add(ResourceFactory.newByteArrayResource(rule2.getBytes("utf-8")), ResourceType.DRL);
 
+			// 检查规则正确性
 			KnowledgeBuilderErrors errors = kb.getErrors();
 			for (KnowledgeBuilderError error : errors) {
 				System.out.println(error);
 			}
-			KnowledgeBase kBase = KnowledgeBaseFactory.newKnowledgeBase();
+			InternalKnowledgeBase kBase = (InternalKnowledgeBase) KnowledgeBaseFactory.newKnowledgeBase();
 			kBase.addKnowledgePackages(kb.getKnowledgePackages());
 
-			kSession = kBase.newStatefulKnowledgeSession();
-
-
+			kSession = kBase.newKieSession();
 			Message message1 = new Message();
 			message1.setStatus(1);
 			message1.setMsg("hello world!");
