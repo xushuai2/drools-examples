@@ -2,14 +2,22 @@ package rules
 
 import com.neo.drools.entity.Order
 
+
+//规则文件可以使用 .drl文件，也可以是xml文件，这里我们使用drl文件。
+
+//定义一个规则。rule "ruleName"。一个规则可以包含三个部分：属性部分 条件部分 结果部分
 rule "zero"
+    //定义当前的规则是否不允许多次循环执行，默认是false，也就是当前的规则只要满足条件，可以无限次执行
     no-loop true
+    //通过这个标签，可以控制当前的规则只会被执行一次
     lock-on-active true
+    //优先级，数值越大越先执行，这个可以控制规则的执行顺序
     salience 1
     when
         $s : Order(amout <= 100)
     then
         $s.setScore(0);
+        $s.setDesc("虚啥就是大家圣诞节");
         update($s);
 end
 
@@ -18,9 +26,11 @@ rule "add100"
     lock-on-active true
     salience 1
     when
-        $s : Order(amout > 100 && amout <= 500)
+        $s : Order(amout > 100 , amout <= 500)
     then
         $s.setScore(100);
+        $s.setDesc("虚啥就是大家圣诞节100");
+        //update：更新
         update($s);
 end
 
@@ -32,6 +42,7 @@ rule "add500"
         $s : Order(amout > 500 && amout <= 1000)
     then
         $s.setScore(500);
+        $s.setDesc("虚啥就是大家圣诞节500");
         update($s);
 end
 
@@ -43,5 +54,6 @@ rule "add1000"
         $s : Order(amout > 1000)
     then
         $s.setScore(1000);
+        $s.setDesc("虚啥就是大家圣诞节1000");
         update($s);
 end

@@ -56,7 +56,7 @@ public class DroolsScoreExample {
 
   
     private static void addScore(Order o){  
-        System.out.println("用户" + o.getUser().getName() + "享受额外增加积分: " + o.getScore());  
+        System.out.println("用户" + o.getUser().getName() + "享受额外增加积分: " + o.getScore()+"----"+o.getDesc());  
     }  
       
     private static List<Order> getInitData() throws Exception {  

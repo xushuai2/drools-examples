@@ -2,6 +2,13 @@
 <kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://www.drools.org/xsd/kmodule">
 
+<!-- 	有状态的KieSession是到目前为止是Drools支持的最强大的会话类型
+	默认就是以有状态的会话
+	
+	每个事件到达时就插入，执行一个激活的规则，获取一个生成的结果，然后等待下一个事件到达。当下一次事件到来时，我们不想在一个新的会话中处理它，我们希望使用与之前的事件相同的会话。这就是有状态的会话
+	
+	 -->
+
     <kbase name="point-rulesKB" packages="rules">
         <ksession name="point-rulesKS"/>
     </kbase>

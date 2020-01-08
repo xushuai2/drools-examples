@@ -11,6 +11,9 @@ public class Order {
     private User user;//下单人  
       
     private int score;  
+    
+    //描述
+    private String desc;
       
     public int getScore() {  
         return score;  
@@ -42,10 +45,14 @@ public class Order {
   
     public void setUser(User user) {  
         this.user = user;  
-    }  
-      
-      
-      
-      
+    }
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}  
       
 }  

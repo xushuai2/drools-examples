@@ -1,16 +1,31 @@
 package com.neo.drools.controller;
 
-import com.neo.drools.model.Address;
-import com.neo.drools.model.fact.AddressCheckResult;
+import javax.annotation.Resource;
+
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
+import com.neo.drools.model.Address;
+import com.neo.drools.model.fact.AddressCheckResult;
 
+/*规则语言
 
+rule “name”
+
+attributes ---->属性
+
+when
+
+LHS ---->条件
+
+then
+
+RHS---->结果
+
+end*/
 @RequestMapping("/test")
 @Controller
 public class TestController {
@@ -33,10 +48,12 @@ public class TestController {
         System.out.println("触发了" + ruleFiredCount + "条规则");
 
         if(result.isPostCodeResult()){
-            System.out.println("规则校验通过");
+            System.out.println("规则校验通过,num="+result.getNum());
         }
 
     }
+    
+    
 
     /**
      * 生成随机数
